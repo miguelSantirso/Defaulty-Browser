@@ -11,6 +11,8 @@ both `http` and `https` links. No Dock icon, no windows, no background daemons.
 - The current default browser is checked.
 - The menu re-reads installed browsers and the default every time it opens, so changes
   made elsewhere (such as Safari's "Make Default" prompt) are reflected immediately.
+- Any app that macOS knows can open `http`/`https` links appears in the list — this is
+  the same set the system considers for "Default web browser".
 - Uses the supported `NSWorkspace` default-application API, not Launch Services plist
   editing.
 - Keyboard quit (⌘Q) and accessible status/menu labels.

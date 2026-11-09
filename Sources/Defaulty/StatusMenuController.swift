@@ -132,8 +132,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     @objc
     private func selectBrowser(_ sender: NSMenuItem) {
         guard let bundleIdentifier = sender.representedObject as? String,
-              let browser = browsers.first(where: { $0.bundleIdentifier == bundleIdentifier }),
-              browser.bundleIdentifier != currentDefaultID
+              let browser = browsers.first(where: { $0.bundleIdentifier == bundleIdentifier })
         else {
             return
         }

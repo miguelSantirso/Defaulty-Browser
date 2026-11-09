@@ -15,6 +15,7 @@ run: app
 	open build/Defaulty.app
 
 install: app
+	@mkdir -p "$(INSTALL_DIR)"
 	rm -rf "$(INSTALL_DIR)/Defaulty.app"
 	cp -R build/Defaulty.app "$(INSTALL_DIR)/Defaulty.app"
 	@echo "Installed $(INSTALL_DIR)/Defaulty.app"

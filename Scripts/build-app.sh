@@ -34,7 +34,8 @@ codesign --force --sign - --timestamp=none "${APP_BUNDLE}"
 if codesign --verify --strict "${APP_BUNDLE}" 2>/dev/null; then
     echo "Ad-hoc signature verified."
 else
-    echo "warning: ad-hoc signature verification failed" >&2
+    echo "error: ad-hoc signature verification failed" >&2
+    exit 1
 fi
 
 echo "Built ${APP_BUNDLE}"

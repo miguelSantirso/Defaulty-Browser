@@ -19,7 +19,8 @@ A tiny macOS menu bar app for switching the system default web browser.
 - `DefaultyCore` library:
   - `Browser` value type.
   - `BrowserDiscovering` protocol + `LaunchServicesBrowserDiscovery` (union of
-    `LSCopyAllHandlersForURLScheme("http"/"https")`, resolve app bundle, dedupe).
+    handlers returned by `NSWorkspace.urlsForApplications(toOpen:)` for
+    `http`/`https`, resolve app bundle, dedupe).
   - `BrowserCatalog` (filter self, sort by localized name).
   - `DefaultBrowserService` (reads current default via
     `NSWorkspace.urlForApplication(toOpen:)`, sets `https` then `http` via
