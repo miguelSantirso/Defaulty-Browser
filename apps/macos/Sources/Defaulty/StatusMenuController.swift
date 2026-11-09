@@ -161,7 +161,14 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = "Couldn’t change the default browser"
-        alert.informativeText = error.localizedDescription
+
+        let recoverySuggestion = (error as? LocalizedError)?.recoverySuggestion
+        if let recoverySuggestion, !recoverySuggestion.isEmpty {
+            alert.informativeText = "\(error.localizedDescription)\n\n\(recoverySuggestion)"
+        } else {
+            alert.informativeText = error.localizedDescription
+        }
+
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }

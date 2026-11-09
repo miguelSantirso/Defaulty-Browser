@@ -1,6 +1,32 @@
-.build/
-build/
-.swiftpm/
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Swift / SwiftPM / Xcode
+.build/
+.swiftpm/
+build/
+DerivedData/
 *.xcuserstate
-*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcarchive
+Defaulty-macOS.zip
+
+# .NET / Windows (future)
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.nupkg
+TestResults/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs and local secrets
+*.log
+.env
+.env.*

@@ -1,86 +1,67 @@
 # Defaulty
 
-Defaulty is a tiny menu bar app for switching the system default web browser on macOS.
-Click the globe in the menu bar, pick a browser, and Defaulty sets it as the default for
-both `http` and `https` links. No Dock icon, no windows, no background daemons.
+One tiny icon to switch your default web browser.
 
-## Features
+Defaulty lives in the menu bar (macOS) or notification area (Windows), lists the browsers
+installed on your system, and marks the current default with a checkmark. Pick another
+browser and it becomes the system default for web links. No windows, no account, no
+telemetry.
 
-- Menu bar–only agent app (`LSUIElement`), native AppKit.
-- Lists installed browsers, sorted like Finder.
-- The current default browser is checked.
-- The menu re-reads installed browsers and the default every time it opens, so changes
-  made elsewhere (such as Safari's "Make Default" prompt) are reflected immediately.
-- Any app that macOS knows can open `http`/`https` links appears in the list — this is
-  the same set the system considers for "Default web browser".
-- Uses the supported `NSWorkspace` default-application API, not Launch Services plist
-  editing.
-- Keyboard quit (⌘Q) and accessible status/menu labels.
-- Command-line modes for testing.
+**Status:** macOS v1.0.0 is implemented. Windows is planned.
 
-## Requirements
+## Repository layout
 
-- macOS 13 or later
-- Xcode / Swift 6 toolchain (developed with Swift 6.4 on macOS 27)
-
-## Build and run
-
-```sh
-make build      # debug build
-make test       # unit tests
-make app        # build and ad-hoc sign build/Defaulty.app
-make run        # build the app and open it
+```text
+.
+├── apps/
+│   ├── macos/          Swift 6 + AppKit menu bar app, tests, packaging
+│   └── windows/        Reserved for the planned C#/.NET tray app
+├── docs/
+│   ├── product-spec.md    Shared behavior and acceptance criteria
+│   ├── architecture.md    Repo boundaries, platform mappings, decisions
+│   └── validation.md      Automated and manual validation
+├── AGENTS.md           Instructions for coding agents
+└── Makefile            Root orchestration
 ```
 
-To install into `/Applications`:
+Platform code stays inside `apps/<platform>/`; product behavior is shared through the spec.
+
+## Quick start (macOS)
+
+Requirements: macOS 13+, Xcode/Swift 6 toolchain.
 
 ```sh
-make install
-# or: make install INSTALL_DIR="$HOME/Applications"
+make macos-run       # build, ad-hoc sign, and launch
+make macos-install   # install to /Applications
+make check           # automated checks
 ```
 
-You can also drag `build/Defaulty.app` to `/Applications` manually.
-
-## Usage
-
-1. Launch Defaulty. A globe appears in the menu bar.
-2. Click it and choose a browser. The current default has a checkmark.
-3. macOS may show a confirmation prompt asking whether to change your default web
-   browser. Accept it; macOS requires this consent for the change to take effect.
-4. Quit with **Quit Defaulty** in the menu (or press ⌘Q while the menu is open).
-
-The status item's tooltip and accessibility label show the current default browser.
-
-## CLI usage (for testers)
-
-Run the executable inside the built app:
+Install somewhere else:
 
 ```sh
-build/Defaulty.app/Contents/MacOS/Defaulty --list
-build/Defaulty.app/Contents/MacOS/Defaulty --current
-build/Defaulty.app/Contents/MacOS/Defaulty --set-default com.google.Chrome
-build/Defaulty.app/Contents/MacOS/Defaulty --help
+make macos-install INSTALL_DIR="$HOME/Applications"
 ```
 
-`--list` prints one browser per line as `bundleID<TAB>name<TAB>path`; the current default
-is prefixed with `* `. `--current` prints the current default bundle identifier, or
-`none`. `--set-default` makes the named browser the default for both schemes and exits
-with a non-zero status on failure. The CLI modes never create the menu bar item.
+Full macOS instructions, CLI probes, and packaging notes live in
+[`apps/macos/README.md`](apps/macos/README.md).
 
-## Uninstall
+## Documentation
 
-Quit Defaulty, then remove the app:
+- [Product specification](docs/product-spec.md) — behavior, goals, platform differences,
+  Windows constraints.
+- [Architecture](docs/architecture.md) — repository boundaries, macOS mapping, Windows plan.
+- [Validation](docs/validation.md) — how to verify a change, including the manual UI checklist.
+- [Agent instructions](AGENTS.md) — rules and commands for coding agents.
 
-```sh
-rm -rf /Applications/Defaulty.app
-```
+## Windows
 
-Defaulty stores no preferences or other files.
+A Windows tray app is planned once the research spike resolves discovery and the
+user-mediated default-app flow. See [`apps/windows/README.md`](apps/windows/README.md).
+Defaulty will not bypass Windows' default-app protections.
 
 ## Notes
 
-- The app is ad-hoc signed for personal use and is **not notarized**. If Gatekeeper
-  blocks a downloaded copy, right-click the app and choose **Open**, or remove the
-  quarantine attribute: `xattr -dr com.apple.quarantine /Applications/Defaulty.app`.
-- The app icon is generated reproducibly by `Scripts/make-icon.swift`:
-  `swift Scripts/make-icon.swift` writes `Resources/AppIcon.icns`.
+- macOS builds are ad-hoc signed and not notarized; they are intended for personal use.
+- The app stores nothing on disk: no preferences, history, or login items.
+- Any app macOS knows can open `http`/`https` links can appear in the browser list, matching
+  what the system itself considers a web handler.

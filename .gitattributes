@@ -1,0 +1,15 @@
+# Normalize text files across platforms; keep binary assets untouched.
+* text=auto eol=lf
+
+*.icns binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.tiff binary
+*.zip binary
+*.pdf binary
+
+# Windows scripts keep native line endings.
+*.bat text eol=crlf
+*.cmd text eol=crlf
