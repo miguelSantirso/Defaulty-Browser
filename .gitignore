@@ -16,6 +16,7 @@ Defaulty-macOS.zip
 # .NET / Windows (future)
 **/bin/
 **/obj/
+artifacts/
 .vs/
 *.user
 *.suo

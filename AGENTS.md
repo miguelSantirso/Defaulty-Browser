@@ -6,15 +6,15 @@ Instructions for coding agents working in this repository. Read this first, then
 ## What this project is
 
 Defaulty is a tiny cross-platform utility for switching the operating system's default web
-browser from a menu bar / notification-area icon. The macOS app is shipped. A Windows app is
-planned. There is no shared runtime code yet.
+browser from a menu bar / notification-area icon. The macOS app is shipped. The Windows app is
+designed; implementation is planned. There is no shared runtime code yet.
 
 ## Repository map
 
 | Path | Contents |
 | --- | --- |
 | `apps/macos/` | Swift 6 + AppKit menu bar app, packaging, tests, CLI probes |
-| `apps/windows/` | Reserved for the planned C# / .NET tray app (docs only for now) |
+| `apps/windows/` | C# / .NET 10 tray app design (no implementation yet) |
 | `docs/product-spec.md` | Source of truth for behavior and acceptance criteria |
 | `docs/architecture.md` | Repo boundaries, platform mappings, constraints, decisions |
 | `docs/validation.md` | Automated and manual validation procedures |
