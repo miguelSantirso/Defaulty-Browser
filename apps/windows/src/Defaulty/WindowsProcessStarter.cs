@@ -14,7 +14,9 @@ public sealed class WindowsProcessStarter : IProcessStarter
                 UseShellExecute = true,
             };
             using var process = Process.Start(psi);
-            return process is not null;
+            // For shell-executed URIs/protocols (e.g. ms-settings:), Process.Start may
+            // return null on success because the request is handed off to an existing handler.
+            return true;
         }
         catch
         {
