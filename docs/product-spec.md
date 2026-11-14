@@ -1,6 +1,6 @@
 # Defaulty — product specification
 
-Status: **macOS v1.0.0 implemented. Windows designed (research spike complete), implementation pending.**
+Status: **macOS v1.0.0 implemented. Windows tray app implemented (core, tray UI, CLI, packaging, tests).**
 This document is the source of truth for behavior. Change it before changing behavior.
 
 ## Vision
@@ -70,7 +70,7 @@ menu, no settings window, no account, no telemetry.
 - **Packaging:** SwiftPM executable assembled into `Defaulty.app`, ad-hoc signed.
 - See `apps/macos/README.md` for commands and `apps/macos/AGENTS.md` for implementation rules.
 
-### Windows (designed, not implemented)
+### Windows (implemented)
 
 Supported targets: Windows 10 22H2 (best effort; Microsoft consumer support ended in October
 2025) and Windows 11 21H2 and later, x64. Primary validation is on Windows 11. Windows Server
@@ -231,5 +231,5 @@ standard output. They are safe to run while the tray app is running.
 ## Roadmap
 
 - **v1.0** — macOS menu bar app (shipped).
-- **Next** — Windows tray app: design locked in Phase 0; implementation and validation next.
+- **v1.0 (Windows)** - tray app implemented; manual validation and CI hardening remain.
 - **Later** — evaluate launch-at-login and localization only if users ask.

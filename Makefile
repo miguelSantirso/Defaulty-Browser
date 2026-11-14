@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := help
 
 MACOS_DIR := apps/macos
+WINDOWS_DIR := apps/windows
 
-.PHONY: help check macos-build macos-test macos-verify macos-app macos-run macos-install macos-clean
+.PHONY: help check macos-build macos-test macos-verify macos-app macos-run macos-install macos-clean windows-build windows-test windows-verify windows-publish
 
 help:
 	@echo "Defaulty"
@@ -16,7 +17,10 @@ help:
 	@echo "  make macos-install   Install to INSTALL_DIR (default: /Applications)"
 	@echo "  make macos-clean     Remove macOS build artifacts"
 	@echo ""
-	@echo "Windows targets will be added with the Windows implementation."
+	@echo "  make windows-build   Build the Windows solution (Release)"
+	@echo "  make windows-test    Run Windows tests"
+	@echo "  make windows-verify  Build + tests + single-file publish"
+	@echo "  make windows-publish Publish self-contained single-file win-x64 artifact"
 
 check: macos-test
 
@@ -40,3 +44,16 @@ macos-install:
 
 macos-clean:
 	$(MAKE) -C $(MACOS_DIR) clean
+
+windows-build:
+	cd $(WINDOWS_DIR) && dotnet build Defaulty.sln -c Release
+
+windows-test:
+	cd $(WINDOWS_DIR) && dotnet test Defaulty.sln -c Release
+
+windows-publish:
+	cd $(WINDOWS_DIR) && pwsh packaging/publish.ps1
+
+windows-verify: windows-build windows-test windows-publish
+	@test -f $(WINDOWS_DIR)/artifacts/win-x64/Defaulty.exe || (echo "missing artifact: $(WINDOWS_DIR)/artifacts/win-x64/Defaulty.exe" && exit 1)
+	@echo "Verified $(WINDOWS_DIR)/artifacts/win-x64/Defaulty.exe"

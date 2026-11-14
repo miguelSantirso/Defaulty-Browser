@@ -1,7 +1,8 @@
 # Defaulty for Windows
 
-**Status: designed, not implemented.** Phase 0 (research spike and spec lock) is complete. The
-Windows tray app will be C# on .NET 10 LTS. There is no code yet.
+**Status: Implemented (core, tray UI, CLI, packaging, tests, safety audit). Manual validation and CI hardening remain.**
+Phase 0 (research spike and spec lock) is complete, and the testable core logic in
+`src/Defaulty.Core` (discovery, state, catalog, settings URI) is implemented.
 
 See the shared [product spec](../../docs/product-spec.md) and
 [architecture](../../docs/architecture.md) for behavior and design. Implementation rules for
@@ -33,7 +34,7 @@ and never automates Settings.
 - **Presentation:** WinForms `NotifyIcon` + `ContextMenuStrip` + `TaskDialog`, no main window,
   one tray icon, no background work.
 
-## Planned structure
+## Structure
 
 ```text
 apps/windows/
@@ -48,8 +49,7 @@ apps/windows/
 
 ## Commands
 
-None yet. The first implementation will add:
-
+Run from `apps/windows/`:
 ```powershell
 dotnet build Defaulty.sln -c Release
 dotnet test Defaulty.sln -c Release
@@ -58,10 +58,10 @@ dotnet publish src/Defaulty/Defaulty.csproj -c Release -r win-x64 `
   -p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
-and namespaced root targets `make windows-build`, `make windows-test`, and
+Root targets: `make windows-build`, `make windows-test`, `make windows-publish`,
 `make windows-verify`.
 
-## Usage (planned)
+## Usage
 
 1. Launch Defaulty. A globe appears in the notification area.
 2. Open the menu. The current default has a checkmark.
@@ -70,7 +70,7 @@ and namespaced root targets `make windows-build`, `make windows-test`, and
    to choose the browser.
 5. Return to Defaulty and reopen the menu. The checkmark shows the actual current default.
 
-## CLI probes (planned, read-only)
+## CLI probes (read-only)
 
 ```powershell
 Defaulty.exe --list

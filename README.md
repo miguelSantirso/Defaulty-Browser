@@ -7,7 +7,7 @@ installed on your system, and marks the current default with a checkmark. Pick a
 browser and it becomes the system default for web links. No windows, no account, no
 telemetry.
 
-**Status:** macOS v1.0.0 is implemented. Windows is designed and pending implementation.
+**Status:** macOS v1.0.0 is implemented. Windows tray app (Phase 3) is implemented with CI/packaging hardening in progress.
 
 ## Repository layout
 
@@ -15,7 +15,7 @@ telemetry.
 .
 ├── apps/
 │   ├── macos/          Swift 6 + AppKit menu bar app, tests, packaging
-│   └── windows/        C#/.NET tray app design (implementation pending)
+│   └── windows/        C#/.NET 10 tray app (implemented: CLI, packaging, tests)
 ├── docs/
 │   ├── product-spec.md    Shared behavior and acceptance criteria
 │   ├── architecture.md    Repo boundaries, platform mappings, decisions
@@ -55,7 +55,7 @@ Full macOS instructions, CLI probes, and packaging notes live in
 
 ## Windows
 
-The Windows tray app is designed and pending implementation. It will use the official Windows
+The Windows tray app is implemented and uses the official Windows
 Settings flow because Windows has no supported silent default-browser API. See
 [`apps/windows/README.md`](apps/windows/README.md). Defaulty will not bypass Windows'
 default-app protections.

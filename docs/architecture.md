@@ -75,12 +75,12 @@ preserve the shared UX contract in `docs/product-spec.md`.
   thread while awaiting them.
 - Minimal deployment target is macOS 13.
 
-## Windows implementation (designed, not implemented)
+## Windows implementation (implemented)
 
 Target: Windows 10 22H2 (best effort) and Windows 11 21H2 or later, x64. Minimum OS is Windows
 10 1809 (build 17763), declared with `SupportedOSPlatformVersion` 10.0.17763.0. The
 implementation is C# on .NET 10 LTS (`net10.0-windows10.0.19041.0`, `UseWindowsForms`). Windows
-Server is out of scope. No runtime NuGet dependency is planned.
+Server is out of scope. No runtime NuGet dependency; MSTest/test SDK are test-only.
 
 Build 17763 is the lowest TFM-compatible API floor, not a validation target: product validation
 starts at Windows 10 22H2, and older Windows 10 builds are untested.
@@ -89,7 +89,7 @@ These decisions were checked against Microsoft Learn in November 2026
 (`SHAssocEnumHandlers`/`IAssocHandler`, `AssocQueryString`/`ASSOCF`, Default Programs,
 `RegisteredApplications`, and the `ms-settings:defaultapps` deep-link contract).
 
-| Responsibility | Planned implementation |
+| Responsibility | Implementation |
 | --- | --- |
 | Domain value | `apps/windows/src/Defaulty.Core/Browser.cs` |
 | Discovery | `apps/windows/src/Defaulty.Core/RegisteredApplicationSource.cs`, `CapabilitiesReader.cs` |

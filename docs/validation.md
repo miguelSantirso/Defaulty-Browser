@@ -90,10 +90,9 @@ codesign -dv apps/macos/build/Defaulty.app
 lsappinfo info -app Defaulty | grep -o 'type="[^"]*"'   # type="UIElement"
 ```
 
-## Automated — Windows (planned; lands with the first implementation)
+## Automated - Windows
 
-The first Windows implementation must add these namespaced root targets and make them pass.
-Until they exist, run the equivalent commands from `apps/windows/`.
+The Windows implementation provides these namespaced root targets.
 
 ```sh
 make windows-build

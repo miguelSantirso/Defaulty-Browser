@@ -1,8 +1,10 @@
 # AGENTS.md — Windows app
 
-Phase 0 (research spike and spec lock) is complete. **No implementation exists yet.** Read the
-root `AGENTS.md`, `docs/product-spec.md`, and `docs/architecture.md` before changing anything.
-The Windows section of the product spec is the behavior contract.
+Phase 0 (research spike and spec lock) is complete. **Phase 2 core/domain services are
+implemented** in `src/Defaulty.Core`; **Phase 3 tray UI, CLI host, and packaging are
+implemented** in `src/Defaulty`.
+Read the root `AGENTS.md`, `docs/product-spec.md`, and `docs/architecture.md` before changing
+anything. The Windows section of the product spec is the behavior contract.
 
 ## Stack (decided)
 
@@ -15,7 +17,7 @@ The Windows section of the product spec is the behavior contract.
   dependencies.
 - x64 first; arm64 is optional later.
 
-## Planned layout
+## Layout
 
 ```text
 apps/windows/
@@ -34,7 +36,7 @@ apps/windows/
 └── README.md
 ```
 
-## Commands (planned; add with the first implementation)
+## Commands
 
 Run from `apps/windows/`:
 

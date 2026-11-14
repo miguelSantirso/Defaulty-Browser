@@ -5,7 +5,7 @@
 ## Platform
 
 - [ ] macOS (`apps/macos/`)
-- [ ] Windows (`apps/windows/`) — planned
+- [ ] Windows (`apps/windows/`) - implemented; run `make windows-verify`
 - [ ] Repository / docs / tooling only
 
 ## Checks

@@ -46,4 +46,43 @@ jobs:
           path: apps/macos/Defaulty-macOS.zip
           if-no-files-found: error
 
-  # Windows CI will be added with the implementation in apps/windows/.
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: apps/windows
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore Defaulty.sln
+
+      - name: Build (Release)
+        run: dotnet build Defaulty.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test Defaulty.sln -c Release --no-build --no-restore
+
+      - name: Publish
+        run: pwsh packaging/publish.ps1
+
+      - name: Verify artifact
+        run: |
+          if (-not (Test-Path artifacts/win-x64/Defaulty.exe)) {
+            throw "Published artifact not found: artifacts/win-x64/Defaulty.exe"
+          }
+          Write-Host "Published artifact: $((Resolve-Path artifacts/win-x64/Defaulty.exe).Path)"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Defaulty-Windows
+          path: apps/windows/artifacts/win-x64/Defaulty.exe
+          if-no-files-found: error
